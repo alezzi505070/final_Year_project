@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Analysis Results</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+</head>
+<body>
+  <div class="bg-overlay"></div>
+  <div class="parallax-stars"></div>
+
+
+
+  <div class="container fade-in">
+    <header class="header">
+      <h1 class="main-title hero-title tilt-on-hover">Analysis for {{ stock_symbol }}</h1>
+      <nav class="nav-bar">
+        <!-- Link back home or any nav item you want -->
+        <a href="{{ url_for('home') }}" class="nav-link"
+          ><i class="fa-solid fa-house"></i> Home</a
+        >
+      </nav>
+    </header>
+
+    <div class="results-grid fade-up">
+      <!-- LEFT: Final Decision Card -->
+      <div class="card decision-card bounce-card tilt-card">
+        <h2>Final Decision</h2>
+        <p class="decision">{{ decision }}</p>
+
+        {% if predicted_price %}
+        <p class="predicted">
+          Predicted Price:
+          <span class="price">
+            ${{ "%.2f"|format(predicted_price) }}
+          </span>
+        </p>
+        {% else %}
+        <p class="predicted">Predicted Price: Unavailable</p>
+        {% endif %}
+      </div>
+
+      <!-- RIGHT: Explanation Card -->
+      <div class="card explanation-card fade-up-delayed tilt-card">
+        <h2>Multi-Model Explanation</h2>
+        <pre>
+{{ explanation_text
+   |replace("&#39;", "'")
+   |replace("&quot;", "\"")
+   |replace("&amp;", "&")
+   |replace("&lt;", "<")
+   |replace("&gt;", ">") 
+}}
+        </pre>
+      </div>
+    </div>
+
+    <div class="back-container">
+      <a href="{{ url_for('home') }}" class="back-link">
+        <i class="fa-solid fa-circle-chevron-left"></i>
+        Analyze Another Symbol
+      </a>
+    </div>
+  </div>
+</body>
+</html>

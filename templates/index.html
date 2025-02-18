@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stock Analysis Portal</title>
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+
+  <!-- Google Fonts / FontAwesome for icons -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+</head>
+
+<body>
+  <!-- Semi-transparent background overlay for a frosted glass effect -->
+  <div class="bg-overlay"></div>
+
+  <!-- A subtle starfield or light-particle layer for parallax effect -->
+  <div class="parallax-stars"></div>
+
+  <!-- We keep a ticker for some dynamic feel at top, you can remove if undesired -->
+
+
+  <div class="container fade-in">
+    <!-- Header / Navbar -->
+    <header class="header">
+      <h1 class="main-title hero-title tilt-on-hover">
+        <span class="portal-word">Stock</span> Analysis Portal
+      </h1>
+      <nav class="nav-bar">
+        <a href="#" class="nav-link active">Home</a>
+
+      </nav>
+    </header>
+
+    <!-- Hero Section with subtle parallax background + illusions -->
+    <section class="hero-section fade-up">
+      <div class="hero-inner">
+        <h2>Elevate Your Trading Decisions</h2>
+        <p>
+          Revel in a refined Brown and Gold interface that speaks of sophistication. 
+          Enter any stock symbol below and let advanced AI do the heavy-lifting!
+        </p>
+        <div class="hero-graphics">
+          <i class="fa-solid fa-chart-line hero-icon"></i>
+          <i class="fa-solid fa-robot hero-icon"></i>
+          <i class="fa-solid fa-coins hero-icon"></i>
+        </div>
+      </div>
+    </section>
+
+    <!-- Card with form to analyze stock symbol -->
+    <div class="card landing-card fade-up-delayed tilt-card">
+      <p class="landing-text">
+        Enter a stock symbol (e.g., AAPL, TSLA, BTC-USD) to run analysis.
+      </p>
+
+      <form action="{{ url_for('analyze') }}" method="POST" class="symbol-form" id="analyzeForm">
+        <div class="input-group">
+          <input
+            type="text"
+            name="stock_symbol"
+            placeholder="e.g., AAPL"
+            class="symbol-input"
+            required
+          />
+          <div class="clear-icon-container">
+            <i class="fas fa-times clear-icon"></i>
+          </div>
+        </div>
+        <button type="submit" class="analyze-btn btn-pulse">
+          Analyze
+          <i class="fas fa-arrow-right analyze-icon"></i>
+        </button>
+      </form>
+      <div class="status-message" id="statusMessage"></div>
+    </div>
+  </div>
+
+  <!-- Loading Overlay and Spinner (initially hidden) -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="spinner"></div>
+    <p>Analyzing... please wait</p>
+  </div>
+
+  <!-- Footer at the bottom -->
+  <footer class="footer fade-up">
+    <p>© 2025 Stock Analysis Portal. Lux Edition. All rights reserved.</p>
+  </footer>
+
+  <!-- Main JS file -->
+  <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+</body>
+</html>

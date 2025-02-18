@@ -1,0 +1,471 @@
+/* =========================
+   style.css
+   Brown & Gold Lux theme
+   with parallax stars, tilt,
+   custom cursor, etc.
+========================== */
+
+/* Basic Reset & Global */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  cursor: url("https://cdn-icons-png.flaticon.com/512/477/477154.png"), auto;
+  /* OPTIONAL custom pointer icon (gold pointer).
+     You can replace with your own if you want a smaller version. */
+}
+
+html, body {
+  height: 100%;
+  font-family: "Roboto", sans-serif;
+  color: #f6f2ed; /* Off-white for text */
+  background: linear-gradient(
+    135deg,
+    #4f2f22,
+    #7f622c,
+    #c2a03f,
+    #4f2f22
+  );
+  background-size: 400% 400%;
+  animation: gradientBG 30s ease infinite;
+  overflow-x: hidden;
+  scroll-behavior: smooth; /* enable smooth scrolling for anchor links */
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Container for main sections */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+  position: relative;
+}
+
+/* Header & Nav */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+.main-title {
+  font-family: "Montserrat", sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #e0c186;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+.main-title:hover {
+  color: #f2dda2;
+}
+
+.nav-bar {
+  display: flex;
+  gap: 2rem;
+}
+.nav-link {
+  text-decoration: none;
+  color: #f6f2ed;
+  font-weight: 500;
+  font-size: 1.1rem;
+  padding-bottom: 0.2rem;
+  border-bottom: 2px solid transparent;
+  transition: color 0.3s ease, border-bottom 0.3s ease;
+}
+.nav-link:hover,
+.nav-link.active {
+  color: #f2dda2;
+  border-bottom-color: #f2dda2;
+}
+
+/* BG overlay for frosted effect */
+.bg-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  backdrop-filter: blur(8px) brightness(0.8);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* PARALLAX STARS: an additional layer to add subtle star or dust specks */
+.parallax-stars {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: url("https://raw.githubusercontent.com/stevenwanderski/bubbly-bg/master/particles.png");
+  /* This is an example texture with small bubbles/particles,
+     you can replace with your own star-like PNG. */
+  background-repeat: repeat;
+  background-size: contain;
+  pointer-events: none;
+  z-index: 0; /* behind container but above bg-overlay */
+  opacity: 0.15; /* subtle effect */
+}
+
+/* Ticker with left->right movement in a more subtle color */
+.ticker-container {
+  position: fixed;
+  top: 50px;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 1.3rem;
+  color: #fff9e9;
+  z-index: 1;
+  opacity: 0.4;
+}
+.ticker-item {
+  display: inline-block;
+  padding: 0 20px;
+  animation: tickerAnimation 30s linear infinite;
+}
+.ticker-item:nth-child(2) {
+  animation-delay: 8s;
+}
+@keyframes tickerAnimation {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+/* Hero Section */
+.hero-section {
+  background: rgba(79, 47, 34, 0.35);
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  padding: 2rem;
+  margin-bottom: 3rem;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+.hero-inner {
+  max-width: 700px;
+  margin: 0 auto;
+}
+.hero-inner h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #f2dda2;
+}
+.hero-inner p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #f6f2ed;
+  margin-bottom: 1.5rem;
+}
+.hero-graphics {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+.hero-icon {
+  font-size: 3rem;
+  color: #d8b156;
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.4));
+  transition: transform 0.3s ease;
+}
+.hero-icon:hover {
+  transform: scale(1.2) rotate(10deg);
+}
+
+/* Cards - main container style for a refined glass look */
+.card {
+  background: rgba(79, 47, 34, 0.5);
+  border-radius: 15px;
+  padding: 2.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  margin-bottom: 2.5rem;
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255,255,255,0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+}
+
+/* tilt-card: mild 3D effect on hover */
+.tilt-card {
+  perspective: 1000px;
+}
+.tilt-card:hover {
+  transform-style: preserve-3d;
+  transform: rotateX(3deg) rotateY(-3deg);
+}
+
+/* tilt-on-hover for headings or text */
+.tilt-on-hover:hover {
+  transform: rotate(-2deg) scale(1.02);
+}
+
+/* Landing Card */
+.landing-card {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+.landing-text {
+  font-size: 1.4rem;
+  margin-bottom: 1.5rem;
+  color: #f6f2ed;
+  line-height: 1.7;
+}
+
+/* Form & Input Elements */
+.symbol-form {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.symbol-input {
+  padding: 1rem;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  flex: 1;
+  max-width: 350px;
+  color: #333;
+  background: rgba(255, 255, 255, 0.9);
+  transition: box-shadow 0.3s ease;
+}
+.symbol-input:focus {
+  box-shadow: 0 0 10px rgba(210,180,140, 0.6);
+}
+.clear-icon-container {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+.clear-icon {
+  font-size: 1.2rem;
+  color: #995;
+  pointer-events: none;
+}
+.analyze-btn {
+  background: #c2a03f;
+  color: #3a240c;
+  font-weight: 600;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+}
+.analyze-btn:hover {
+  background: #e0c186;
+  transform: translateY(-2px);
+}
+.analyze-icon {
+  font-size: 1.2rem;
+}
+
+/* Pulsing effect around the Analyze button */
+.btn-pulse {
+  animation: pulseAnimation 1.5s infinite ease-in-out;
+}
+@keyframes pulseAnimation {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(194,160,63,0.5); }
+  50% { box-shadow: 0 0 0 20px rgba(194,160,63,0.0); }
+}
+
+/* Results Grid */
+.results-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-gap: 3rem;
+  margin-bottom: 2rem;
+}
+.decision-card {
+  text-align: center;
+}
+.decision-card h2 {
+  color: #f2dda2;
+}
+.decision {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #e6c67b;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+.predicted {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #f6f2ed;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.price {
+  font-weight: 700;
+  color: #fcd76b;
+}
+
+/* Explanation Card */
+.explanation-card h2 {
+  color: #f2dda2;
+}
+.explanation-card pre {
+  background: rgba(79, 47, 34, 0.55);
+  padding: 2rem;
+  border-radius: 10px;
+  line-height: 1.7;
+  max-height: 500px;
+  overflow-y: auto;
+  color: #f6f2ed;
+  white-space: pre-wrap;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+}
+
+/* Back Container Link */
+.back-container {
+  text-align: center;
+  margin-top: 2rem;
+}
+.back-link {
+  color: #e7c48f;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.back-link:hover {
+  color: #fcd76b;
+  text-decoration: underline;
+}
+
+/* Loading Overlay & Spinner */
+.loading-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(50, 28, 14, 0.85);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.loading-overlay.show {
+  opacity: 1;
+  pointer-events: all;
+}
+.spinner {
+  width: 70px;
+  height: 70px;
+  border: 7px solid #a07b39;
+  border-top: 7px solid #fcd76b;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 2rem;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.loading-overlay p {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #fcd76b;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: rgba(79, 47, 34, 0.3);
+  color: #f6f2ed;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  margin-top: 2rem;
+}
+
+/* Animations */
+.fade-in {
+  animation: fadeIn 1.2s forwards ease;
+  opacity: 0;
+}
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+.fade-up {
+  animation: fadeUp 1.2s forwards ease;
+  opacity: 0;
+}
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.fade-up-delayed {
+  animation: fadeUp 1.2s 0.5s forwards ease;
+  opacity: 0;
+}
+
+/* bounce-card for left side in results */
+.bounce-card {
+  animation: bounceIn 1.5s ease;
+}
+@keyframes bounceIn {
+  0%   { transform: scale(0.9) translateY(50px); opacity: 0; }
+  50%  { transform: scale(1.05) translateY(-20px); opacity: 1; }
+  70%  { transform: scale(0.98) translateY(10px); }
+  100% { transform: scale(1) translateY(0px); }
+}
+
+/* Subtle scale for .portal-word */
+.portal-word {
+  display: inline-block;
+  animation: textPulse 2s infinite;
+  transition: transform 0.2s ease;
+}
+@keyframes textPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.07) rotate(2deg); }
+  100% { transform: scale(1); }
+}
+
+/* Status Message styling */
+.status-message {
+  color: #f28888;
+  margin-top: 0.5rem;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 500;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.status-message.show {
+  opacity: 1;
+}
